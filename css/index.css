@@ -1,0 +1,113 @@
+/* ! -------------------- Header --------------------*/
+
+:root {
+  --color-1: #cc1855;
+  --color-2: #2388cc;
+  --color-3: #001f3f;
+  --color-4: #212529;
+  --color-5: #fff;
+  --color-6: #a31344;
+  --color-7: #001f3f;
+  --color-8: #001120;
+  --color-9: #d3e7f5;
+}
+.main-header {
+  background-color: #fff;
+  height: 8.6rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 4.8rem;
+  height: auto;
+  color: var(--color-6);
+}
+.logo-text {
+  font-family: "Titan One", sans-serif;
+  font-size: 2.2rem;
+  color: var(--color-6);
+  font-weight: 700;
+}
+
+/* ! -------------------- navbar --------------------*/
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.nav-link:link,
+.nav-link:visited {
+  font-size: 1.8rem;
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--color-4);
+  transition: all 0.3 ease-in;
+}
+.nav-link:hover,
+.nav-link:active {
+  color: var(--color-6);
+}
+
+/* ! -------------------- navbar buttons --------------------*/
+.login-btn-box {
+  margin-left: 5.6rem;
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+/* ! -------------------- section-hero --------------------*/
+.section-hero {
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 9.8rem 3.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  column-gap: 4.8rem;
+  row-gap: 6.4rem;
+}
+.hero-text-box {
+}
+
+.heading-description {
+  font-size: 2.2rem;
+  line-height: 1.5;
+  margin-bottom: 5rem;
+}
+
+.hero-img-box {
+}
+.hero-image {
+  max-width: 100%;
+}
+.hero-btn-box {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+/* ! -------------------- section--pathway--------------------*/
+.section--pathway {
+  background-color: #f5fafd;
+  padding: 9.8rem 3.2rem;
+}
+.step-heading-description {
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
+.step-img {
+  width: 80%;
+  border-radius: 60px;
+  box-shadow: 0 2.6rem 4.8rem rgba(0, 0, 0, 0.075);
+}
