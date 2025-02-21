@@ -94,9 +94,24 @@ body {
 .grid--2--cols {
   grid-template-columns: repeat(2, 1fr);
 }
+.grid--3--cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid--4--cols {
+  grid-template-columns: repeat(4, 1fr);
+}
 
 .center-y {
   align-items: center;
+}
+
+.no-gap {
+  column-gap: 2.4rem;
+  row-gap: 2.4rem;
+}
+
+.plan-gap {
+  column-gap: 4rem;
 }
 /* ! -------------------- headings --------------------*/
 
