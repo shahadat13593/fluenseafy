@@ -58,7 +58,7 @@ Default: 5px
   --color-4: #212529;
   --color-5: #fff;
   --color-6: #a31344;
-  --color-7: #001f3f;
+  --color-7: #1c6da3;
   --color-8: #001120;
 }
 
@@ -187,4 +187,30 @@ body {
 .btn--level:hover {
   background-color: var(--color-8);
   padding: 1.4rem 2.8rem;
+}
+
+/* ! -------------------- links --------------------*/
+
+.link:link,
+.link:visited {
+  color: var(--color-2);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.2rem;
+  transition: all 0.3s;
+}
+.link:hover,
+.link:active {
+  color: var(--color-7);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+/* ! -------------------- Others --------------------*/
+.margin-bottom--mb {
+  margin-bottom: 4.8rem;
+}
+strong {
+  font-weight: 600;
+  color: var(--color-4);
 }

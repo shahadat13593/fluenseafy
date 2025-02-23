@@ -18,7 +18,7 @@
     <!-- ! ------------------  Header -------------------->
     <header class="main-header">
       <div class="logo-box">
-        <img src="./img/logo.png" alt="" class="logo" />
+        <a href="#"><img src="./img/logo.png" alt="" class="logo" /></a>
         <!-- <ion-icon name="flame-outline" class="logo"></ion-icon> -->
         <span class="logo-text">Fluenseafy</span>
       </div>
@@ -338,7 +338,7 @@
             Flexible Plans for Learners &mdash; Designed for Your Needs
           </h2>
         </div>
-        <div class="container grid grid--3--cols plan-gap">
+        <div class="container grid grid--3--cols plan-gap margin-bottom--mb">
           <!-- ! ------------- plan--basic--------------->
           <div class="plan plan--basic">
             <div class="plan-header">
@@ -487,9 +487,174 @@
             </div>
           </div>
         </div>
+        <div class="container all-courses">
+          <a href="#" class="link">See all Courses &rarr;</a>
+        </div>
+      </section>
+
+      <!-- ! ------------- Section cat --------------->
+      <section class="section--cta">
+        <div class="container">
+          <div class="cta">
+            <div class="cta-form-box">
+              <h2 class="secondary-heading">
+                Get your first Level assessment for free!
+              </h2>
+              <p class="cta-text">
+                Take the first step toward fluency with a free level assessment.
+                No commitment &mdash; just sign up and get started!
+              </p>
+
+              <form class="cta-form" action="#">
+                <div>
+                  <label for="full-name" class="form-label">Full Name:</label>
+                  <input
+                    type="text"
+                    name="full-name"
+                    id="full-name"
+                    placeholder="Shahadat Hossain"
+                    required
+                    class="form-input"
+                  />
+                </div>
+
+                <div>
+                  <label for="email" class="form-label">Email:</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="example@gmail.com"
+                    required
+                    class="form-input"
+                  />
+                </div>
+
+                <div>
+                  <label for="where" class="form-label">
+                    Where did you know about us?
+                  </label>
+                  <select name="where" id="where" class="form-input">
+                    <option value="">Please choose one option:</option>
+                    <option value="Friends">Friends and family</option>
+                    <option value="youtube">Youtube</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="podcast">Podcast</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-btn-box">
+                  <a href="#" class="form-btn">Register now</a>
+                </div>
+              </form>
+            </div>
+            <div
+              class="cta-img-box"
+              role="img"
+              aria-label="Woman Studying English"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ! ------------- Section footer --------------->
+      <section class="section--footer">
+        <div class="container grid grid--4--cols">
+          <div class="logo-boxs">
+            <!-- ? logo --- -->
+            <div class="logo-box">
+              <a href="#"><img src="./img/logo.png" alt="" class="logo" /></a>
+              <!-- <ion-icon name="flame-outline" class="logo"></ion-icon> -->
+              <span class="logo-text">Fluenseafy</span>
+            </div>
+
+            <ul class="social-links">
+              <li>
+                <a class="footer-icon--link instagram" href="#">
+                  <ion-icon
+                    name="logo-instagram"
+                    class="footer-icon"
+                  ></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a class="footer-icon--link youtube" href="#">
+                  <ion-icon name="logo-youtube" class="footer-icon"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a class="footer-icon--link facebook" href="#">
+                  <ion-icon name="logo-facebook" class="footer-icon"></ion-icon>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright">
+              Copyright &copy <span class="year">2025</span> by Fluenseafy, Inc.
+              All rights reserved.
+            </p>
+          </div>
+
+          <!-- ? site --- -->
+          <div class="col">
+            <p class="footer-heading">Site</p>
+            <ul class="footer-lists">
+              <li class="footer-list">
+                <a href="" class="footer-link">Home</a>
+              </li>
+
+              <li class="footer-list">
+                <a href="" class="footer-link">Courses </a>
+              </li>
+
+              <li class="footer-list">
+                <a href="" class="footer-link">English levels</a>
+              </li>
+
+              <li class="footer-list">
+                <a href="" class="footer-link">Register</a>
+              </li>
+            </ul>
+          </div>
+          <!-- ? Information --- -->
+          <div class="col">
+            <p class="footer-heading">Information</p>
+            <ul class="footer-lists">
+              <li class="footer-list">
+                <a href="" class="footer-link">About Us</a>
+              </li>
+
+              <li class="footer-list">
+                <a href="" class="footer-link">FAQ</a>
+              </li>
+
+              <li class="footer-list">
+                <a href="" class="footer-link">Terms of use</a>
+              </li>
+
+              <li class="footer-list">
+                <a href="" class="footer-link"> Privacy and cookies</a>
+              </li>
+            </ul>
+          </div>
+          <!-- ? contact US --- -->
+          <div class="col">
+            <p class="footer-heading">Contact Us</p>
+            <address class="address-box">
+              <p class="address-text">Dhaka, Bangladesh</p>
+
+              <p>
+                <a href="tell:+8801631619100" class="footer-link">01631619100</a
+                ><br />
+                <a href="mailto:shahadat78789812@gmail.com" class="footer-link"
+                  >shahadat78789812@gmail.com</a
+                >
+              </p>
+            </address>
+          </div>
+        </div>
       </section>
     </main>
-
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -498,11 +663,5 @@
       nomodule
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
-
-    <script>
-      window.addEventListener("keydown", function (event) {
-        console.log(event);
-      });
-    </script>
   </body>
 </html>

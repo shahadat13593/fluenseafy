@@ -389,3 +389,175 @@
 .plan-btn .btn {
   padding: 1.4rem 2.8rem;
 }
+
+.all-courses {
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+/* ! -------------- Section cta ------------------*/
+.section--cta {
+  padding: 4.8rem 0 12.8rem;
+}
+.cta {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  background: linear-gradient(to right bottom, var(--color-12), var(--color-9));
+  color: var(--color-4);
+  border-radius: 11px;
+  box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+.cta-form-box {
+  padding: 4.8rem 6.4rem 6.4rem 6.4rem;
+}
+
+.cta .secondary-heading {
+  margin-bottom: 3.2rem;
+  font-size: 4.2rem;
+  color: var(--color-4);
+}
+.cta-text {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  margin-bottom: 4.8rem;
+}
+
+.cta-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.2rem;
+  row-gap: 2.4rem;
+}
+.form-label {
+  font-size: 1.8rem;
+  line-height: 1.8;
+  font-weight: 600;
+}
+.form-input,
+.form-btn {
+  width: 100%;
+  height: 4.8rem;
+  border-radius: 11px;
+  border: none;
+  padding: 1.2rem;
+  font-family: inherit;
+  font-size: 1.8rem;
+}
+
+.form-btn-box {
+  align-self: end;
+}
+
+.form-btn:link,
+.form-btn:visited {
+  color: var(--color-5);
+  background-color: var(--color-3);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.form-btn:hover,
+.form-btn:active {
+  background-color: #fff;
+  color: var(--color-4);
+}
+.cta-img-box {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(../img/form.png);
+}
+
+/* ! -------------- Section footer ------------------*/
+.section--footer {
+  padding: 12.8rem 0;
+
+  background-color: var(--color-8);
+  /* background-color: var(--color-11); */
+}
+.logo-boxs .logo-box {
+  justify-content: flex-start !important;
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+
+  gap: 2.4rem;
+  cursor: pointer;
+  margin-top: 2.8rem;
+}
+
+.footer-heading {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 4rem;
+  color: var(--color-5);
+}
+.footer-lists {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.footer-link:link,
+.footer-link:visited {
+  font-size: 1.6rem;
+  text-decoration: none;
+  color: #dee2e6;
+  color: #ced4da;
+}
+.footer-link:hover,
+.footer-link:active {
+  color: var(--color-2);
+}
+.logo-boxs {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-box {
+  font-style: normal;
+}
+.address-text {
+  font-size: 1.6rem;
+  margin-bottom: 3.2rem;
+  line-height: 1.6;
+  color: #ced4da;
+}
+
+.footer-icon {
+  font-size: 2.4rem;
+}
+
+.footer-icon--link:link,
+.footer-icon--link:visited {
+  color: var(--color-5);
+}
+
+.copyright {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #ced4da;
+  margin-top: auto;
+}
+.instagram:hover,
+.instagram:active {
+  color: var(--color-1);
+}
+.facebook:hover,
+.facebook:active {
+  color: var(--color-2);
+}
+.youtube:hover,
+.youtube:active {
+  color: #f03e3e;
+}
