@@ -1,0 +1,8 @@
+/* Inline SVG icons, sized like <ion-icon> (1em, content-box). Loaded before index.css so its sizing classes win. */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  box-sizing: content-box;
+  fill: currentColor;
+}
