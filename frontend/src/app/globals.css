@@ -1,0 +1,317 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Light-only for now; the class-based variant keeps shadcn's `dark:` utilities inert. */
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Fluenseafy design tokens. Brand colours come from the legacy palette
+ * (crimson #cc1855, navy #001f3f, blue #2388cc); text-safe variants and
+ * neutral tints were added for contrast. See CLAUDE.md for the full palette.
+ */
+:root {
+  --background: #ffffff;
+  --foreground: #001f3f; /* navy: headings and primary text */
+  --card: #ffffff;
+  --card-foreground: #001f3f;
+  --popover: #ffffff;
+  --popover-foreground: #001f3f;
+  --primary: #cc1855; /* crimson: main CTA (5.5:1 on white) */
+  --primary-foreground: #ffffff;
+  --secondary: #001f3f; /* navy: secondary CTA */
+  --secondary-foreground: #ffffff;
+  --muted: #f3f7fb;
+  --muted-foreground: #4a5766; /* body copy (7:1 on white) */
+  --accent: #e4f0f9; /* sky tint: hover and highlight surfaces */
+  --accent-foreground: #001f3f;
+  --destructive: #c0262d;
+  --border: #dde6ee;
+  --input: #8a9db2; /* form control border */
+  --ring: #2388cc;
+  --radius: 0.75rem;
+
+  --brand-strong: #a31344; /* crimson hover / wordmark */
+  --brand-blue: #2388cc;
+  --brand-blue-strong: #1c6da3; /* blue for text and icons (5.5:1) */
+  --brand-rose: #f9e9ef;
+  --surface: #f5fafd; /* alternate section background */
+  --navy-deep: #001120; /* footer */
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-strong: var(--brand-blue-strong);
+  --color-brand-rose: var(--brand-rose);
+  --color-surface: var(--surface);
+  --color-navy-deep: var(--navy-deep);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  /* Elevation scale (navy-tinted, low opacity). Reuse for dashboards. */
+  --shadow-xs: 0 1px 2px rgb(0 31 63 / 0.05);
+  --shadow-sm: 0 1px 2px rgb(0 31 63 / 0.05), 0 2px 6px -2px rgb(0 31 63 / 0.06);
+  --shadow-md: 0 2px 4px rgb(0 31 63 / 0.04), 0 8px 20px -8px rgb(0 31 63 / 0.1);
+  --shadow-lg: 0 4px 8px rgb(0 31 63 / 0.04), 0 16px 32px -12px rgb(0 31 63 / 0.14);
+  --shadow-card: 0 1px 2px rgb(0 31 63 / 0.04), 0 4px 14px -6px rgb(0 31 63 / 0.07);
+  --shadow-card-hover: 0 1px 2px rgb(0 31 63 / 0.04), 0 10px 24px -10px rgb(0 31 63 / 0.13);
+
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+    scroll-padding-top: 5rem; /* sticky header */
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+}
+
+/*
+ * Motion system. Timings: fast 200ms (buttons, inputs), base 300ms (hover,
+ * navigation), slow 450ms (card elevation), enter 600ms (reveals). One easing
+ * curve (--ease-smooth) everywhere; transform and opacity only.
+ */
+:root {
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --dur-slow: 450ms;
+  --dur-lift: 380ms;
+  --dur-enter: 600ms;
+}
+@theme {
+  --default-transition-duration: 250ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Uses the individual `translate` property so a filled animation never overrides hover `transform`s. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+
+/* Page-load entrance for the hero; --i sets the stagger step. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise var(--dur-enter) var(--ease-smooth) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+}
+
+/*
+ * Scroll reveal via CSS scroll-driven animations (no JS). Unsupported
+ * browsers and reduced-motion users see the content immediately.
+ * --reveal-i staggers items within a grid.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rise linear both;
+      animation-timing-function: var(--ease-smooth);
+      animation-timeline: view();
+      animation-range: entry calc(var(--reveal-i, 0) * 5%)
+        entry calc(35% + var(--reveal-i, 0) * 5%);
+    }
+    .progress-fill {
+      transform-origin: left;
+      animation: fill-in linear both;
+      animation-timing-function: var(--ease-smooth);
+      animation-timeline: view();
+      animation-range: entry 15% entry 75%;
+    }
+    .header-surface {
+      border-bottom-color: transparent;
+      animation: header-in linear both;
+      animation-timeline: scroll();
+      animation-range: 0 64px;
+    }
+  }
+}
+@keyframes fill-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes header-in {
+  to {
+    border-bottom-color: var(--border);
+    box-shadow: var(--shadow-xs);
+  }
+}
+
+/*
+ * Interactive surface: a 2px lift plus a hover shadow that fades in on a
+ * pseudo-element (opacity animates cheaper than box-shadow).
+ */
+.surface-lift {
+  position: relative;
+  transition:
+    transform var(--dur-lift) var(--ease-smooth),
+    border-color var(--dur-lift) var(--ease-smooth);
+}
+.surface-lift::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: var(--shadow-card-hover);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-lift) var(--ease-smooth);
+}
+/*
+ * The card moves up on hover, which would pull its bottom edge out from
+ * under a pointer resting there and cause flicker. This invisible strip
+ * keeps the lifted card hovered across that gap.
+ */
+.surface-lift::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 -8px 0;
+  height: 8px;
+}
+@media (hover: hover) {
+  .surface-lift:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--brand-blue) 32%, var(--border));
+  }
+  .surface-lift:hover::after {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .surface-lift:hover {
+    transform: none; /* keep the border and shadow feedback, drop the movement */
+  }
+}
+
+/* Navigation: highlight the link whose section was jumped to. */
+:root:has(#home:target) .nav-link[href="#home"]::after,
+:root:has(#pathway:target) .nav-link[href="#pathway"]::after,
+:root:has(#levels:target) .nav-link[href="#levels"]::after,
+:root:has(#framework:target) .nav-link[href="#framework"]::after,
+:root:has(#pricing:target) .nav-link[href="#pricing"]::after {
+  transform: scaleX(1);
+}
+
+/*
+ * Hero ambient background: three soft radial layers (crimson, blue, rose)
+ * built from brand tokens. JS (hero-ambient.tsx) moves each outer layer;
+ * each layer parallaxes by its own depth, and the blobs drift slowly on idle.
+ */
+.hero-ambient {
+  --px: 0;
+  --py: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Dissolve the ambient light into the page background so the hero ends cleanly. */
+.hero-ambient::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 42%;
+  background: linear-gradient(to bottom, transparent, var(--background) 95%);
+}
+/* Outer layer: positioned here, moved by the pointer via an inline transform (hero-ambient.tsx). */
+.ambient-layer {
+  position: absolute;
+  aspect-ratio: 1;
+  will-change: transform;
+}
+.ambient-blob {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    var(--tint) 0%,
+    color-mix(in srgb, var(--tint) 55%, transparent) 45%,
+    transparent 100%
+  );
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-blob {
+    animation: ambient-drift var(--drift, 26s) ease-in-out infinite alternate;
+  }
+}
+@keyframes ambient-drift {
+  from {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3%, 2%, 0) scale(1.06);
+  }
+}
+/* Layer colours and positions; pointer travel per layer is the DEPTH table in hero-ambient.tsx. */
+.ambient-crimson {
+  top: -24%;
+  right: -4%;
+  width: min(38rem, 75vw);
+  --tint: color-mix(in srgb, var(--primary) 21%, transparent);
+  --drift: 24s;
+}
+.ambient-blue {
+  bottom: 2%;
+  left: -8%;
+  width: min(40rem, 80vw);
+  --tint: color-mix(in srgb, var(--brand-blue) 24%, transparent);
+  --drift: 30s;
+}
+.ambient-rose {
+  top: 6%;
+  left: 36%;
+  width: min(28rem, 55vw);
+  --tint: var(--brand-rose);
+  --drift: 36s;
+}
