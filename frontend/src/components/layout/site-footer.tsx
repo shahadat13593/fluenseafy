@@ -8,7 +8,7 @@ const linkClass =
 
 export function SiteFooter() {
   return (
-    <footer className="bg-navy-deep text-white">
+    <footer data-cursor-tone="dark" className="bg-navy-deep text-white">
       <Container className="grid gap-12 py-14 sm:py-16 md:grid-cols-[1.4fr_1fr_1.2fr]">
         <div>
           <Logo tone="light" />

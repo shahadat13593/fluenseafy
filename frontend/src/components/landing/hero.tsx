@@ -67,6 +67,7 @@ export function Hero() {
             width={4267}
             height={4267}
             sizes="(min-width: 1024px) 45vw, (min-width: 448px) 448px, 90vw"
+            data-hero-art
             className="h-auto w-full mix-blend-multiply"
             priority
           />
