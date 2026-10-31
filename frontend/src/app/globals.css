@@ -243,7 +243,8 @@
 
 /*
  * Hero ambient background: three soft radial layers (crimson, blue, rose)
- * built from brand tokens. JS (hero-ambient.tsx) moves each outer layer;
+ * built from brand tokens; they are the static fallback for the WebGL current
+ * (lib/hero-current) and stay visible until its first frame is drawn.
  * each layer parallaxes by its own depth, and the blobs drift slowly on idle.
  */
 .hero-ambient {
@@ -263,11 +264,13 @@
   height: 42%;
   background: linear-gradient(to bottom, transparent, var(--background) 95%);
 }
-/* Outer layer: positioned here, moved by the pointer via an inline transform (hero-ambient.tsx). */
+/* Static fallback layers (also the server-rendered state). */
 .ambient-layer {
   position: absolute;
   aspect-ratio: 1;
-  will-change: transform;
+  transition:
+    opacity var(--dur-enter) var(--ease-smooth),
+    visibility 0s var(--dur-enter);
 }
 .ambient-blob {
   width: 100%;
@@ -293,7 +296,7 @@
     transform: translate3d(3%, 2%, 0) scale(1.06);
   }
 }
-/* Layer colours and positions; pointer travel per layer is the DEPTH table in hero-ambient.tsx. */
+/* Layer colours and positions. */
 .ambient-crimson {
   top: -24%;
   right: -4%;
@@ -314,4 +317,85 @@
   width: min(28rem, 55vw);
   --tint: var(--brand-rose);
   --drift: 36s;
+}
+
+/* Hero current (WebGL canvas, lib/hero-current) fades in over the fallback. */
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity var(--dur-enter) var(--ease-smooth);
+}
+.hero-ambient[data-gl="on"] .hero-canvas {
+  opacity: 1;
+}
+.hero-ambient[data-gl="on"] .ambient-layer {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/*
+ * Site-wide "fluid precision" cursor (lib/cursor/cursor.ts): an exact white dot
+ * with a navy outline, and a thin ring that trails by ~50ms and stretches
+ * slightly with speed. Shown only for mouse/pen, never over native controls.
+ */
+.cursor-root {
+  display: contents;
+}
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 55; /* above the sticky header and sheet overlay (z-50) */
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity var(--dur-fast) var(--ease-smooth);
+}
+.cursor-dot::after,
+.cursor-ring::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.cursor-dot::after {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgb(0 31 63 / 0.8),
+    0 1px 5px rgb(0 31 63 / 0.3);
+}
+.cursor-ring::after {
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border: 1px solid rgb(0 31 63 / 0.4);
+  scale: 1;
+  transition:
+    scale var(--dur-base) var(--ease-smooth),
+    border-color var(--dur-base) var(--ease-smooth);
+}
+.cursor-root[data-on="true"] :is(.cursor-dot, .cursor-ring) {
+  opacity: 1;
+}
+.cursor-root[data-down="true"] .cursor-ring::after {
+  scale: 0.8;
+}
+/* On the dark footer the navy ring would vanish; keep the dot's own outline. */
+.cursor-root[data-tone="dark"] .cursor-ring::after {
+  border-color: rgb(255 255 255 / 0.55);
+}
+/* Reduced motion: exact dot only, no trailing ring. */
+.cursor-root[data-reduced="true"] .cursor-ring {
+  display: none;
+}
+/* Native cursor is hidden only while the custom one is shown (class set from JS). */
+html.custom-cursor,
+html.custom-cursor * {
+  cursor: none;
 }
