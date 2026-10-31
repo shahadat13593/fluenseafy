@@ -1,5 +1,14 @@
-import { Icon } from "@/components/icons";
-import { SectionHeader } from "./section-header";
+import { CheckIcon, XIcon } from "lucide-react";
+import { Section, SectionHeader } from "@/components/layout/section";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type Feature = { text: string; included: boolean; strong?: boolean };
 
@@ -10,17 +19,17 @@ const SHARED: Feature[] = [
 ];
 
 const PLANS: {
-  modifier: string;
   name: string;
   price: number;
-  buttonClass: string;
+  accent: string;
+  variant: "outline" | "default";
   features: Feature[];
 }[] = [
   {
-    modifier: "plan--basic",
     name: "Basic to Intermediate",
     price: 33,
-    buttonClass: "btn",
+    accent: "bg-foreground",
+    variant: "outline",
     features: [
       { text: "A1 to B2 Levels", included: true, strong: true },
       ...SHARED,
@@ -28,10 +37,10 @@ const PLANS: {
     ],
   },
   {
-    modifier: "plan--intermediate",
-    name: "Get Advance",
+    name: "Advanced",
     price: 66,
-    buttonClass: "btn btn--secondary",
+    accent: "bg-brand-blue",
+    variant: "outline",
     features: [
       { text: "C1 to C2 Levels", included: true, strong: true },
       ...SHARED,
@@ -39,10 +48,10 @@ const PLANS: {
     ],
   },
   {
-    modifier: "plan--advance",
     name: "All Inclusive",
     price: 99,
-    buttonClass: "btn btn--primary",
+    accent: "bg-primary",
+    variant: "default",
     features: [
       { text: "All Levels", included: true, strong: true },
       ...SHARED,
@@ -53,55 +62,76 @@ const PLANS: {
 
 export function Pricing() {
   return (
-    <section id="pricing" className="section--price">
+    <Section id="pricing">
       <SectionHeader
         eyebrow="Pricing"
         title="Flexible Plans for Learners — Designed for Your Needs"
       />
-      <div className="container grid grid--3--cols plan-gap margin-bottom--mb">
+      <div className="mx-auto mt-12 grid max-w-md gap-6 sm:mt-16 lg:max-w-none lg:grid-cols-3">
         {PLANS.map((plan) => (
-          <div key={plan.name} className={`plan ${plan.modifier}`}>
-            <div className="plan-header">
-              <h3 className="plan-name">{plan.name}</h3>
-              <p className="plan-price">
-                <span>$</span>
-                {plan.price}
+          <Card
+            key={plan.name}
+            className="reveal relative gap-0 pt-8 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+          >
+            <span
+              className={cn("absolute inset-x-0 top-0 h-1.5", plan.accent)}
+              aria-hidden="true"
+            />
+            <CardHeader className="text-center">
+              <CardTitle className="text-sm tracking-[0.08em] text-muted-foreground uppercase">
+                <h3>{plan.name}</h3>
+              </CardTitle>
+              <p className="mt-4 flex items-start justify-center text-foreground">
+                <span className="mt-2 mr-1 text-2xl font-medium">$</span>
+                <span className="text-6xl font-bold tracking-tight">
+                  {plan.price}
+                </span>
               </p>
-              <p className="plan-text">All module are Included</p>
-            </div>
-            <ul className="plan-lists">
-              {plan.features.map((feature) => (
-                <li key={feature.text} className="plan-list">
-                  <Icon
-                    name={
-                      feature.included
-                        ? "checkmark-circle-outline"
-                        : "close-circle-outline"
-                    }
-                    className="plan-icon"
-                  />
-                  <span>
-                    {feature.strong ? <strong>{feature.text}</strong> : feature.text}
-                    {!feature.included && (
-                      <span className="visually-hidden"> (not included)</span>
+              <p className="mt-2 text-sm text-muted-foreground">
+                All modules included
+              </p>
+            </CardHeader>
+
+            <CardContent className="mt-8">
+              <ul className="space-y-3.5">
+                {plan.features.map((feature) => (
+                  <li
+                    key={feature.text}
+                    className={cn(
+                      "flex items-center gap-3",
+                      !feature.included && "text-muted-foreground",
                     )}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div className="plan-btn">
-              <button type="button" className={plan.buttonClass}>
-                Get Started
-              </button>
-            </div>
-          </div>
+                  >
+                    {feature.included ? (
+                      <CheckIcon
+                        className="size-5 shrink-0 text-primary"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <XIcon
+                        className="size-5 shrink-0 text-muted-foreground/70"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span className={cn(feature.strong && "font-semibold text-foreground")}>
+                      {feature.text}
+                      {!feature.included && (
+                        <span className="sr-only"> (not included)</span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+
+            <CardFooter className="mt-8 border-0 bg-transparent p-0 px-(--card-spacing)">
+              <Button asChild size="lg" variant={plan.variant} className="w-full">
+                <a href="#assessment">Get Started</a>
+              </Button>
+            </CardFooter>
+          </Card>
         ))}
       </div>
-      <div className="container all-courses">
-        <a href="#" className="link">
-          See all Courses &rarr;
-        </a>
-      </div>
-    </section>
+    </Section>
   );
 }

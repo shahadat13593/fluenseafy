@@ -1,89 +1,80 @@
-import { Icon, type IconName } from "@/components/icons";
+import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import { Container } from "./container";
 import { Logo } from "./logo";
+import { NAV_LINKS } from "./nav-links";
 
-const SOCIAL_LINKS: { name: string; icon: IconName; className: string }[] = [
-  { name: "Instagram", icon: "logo-instagram", className: "instagram" },
-  { name: "YouTube", icon: "logo-youtube", className: "youtube" },
-  { name: "Facebook", icon: "logo-facebook", className: "facebook" },
-];
-
-// "#" marks pages that do not exist yet.
-const FOOTER_COLUMNS = [
-  {
-    heading: "Site",
-    links: [
-      { label: "Home", href: "#home" },
-      { label: "Courses", href: "#pricing" },
-      { label: "English levels", href: "#progression" },
-      { label: "Register", href: "#assessment" },
-    ],
-  },
-  {
-    heading: "Information",
-    links: [
-      { label: "About Us", href: "#" },
-      { label: "FAQ", href: "#" },
-      { label: "Terms of use", href: "#" },
-      { label: "Privacy and cookies", href: "#" },
-    ],
-  },
-];
+const linkClass =
+  "rounded-sm text-sm text-white/70 transition-colors hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60";
 
 export function SiteFooter() {
   return (
-    <footer className="section--footer">
-      <div className="container grid grid--4--cols">
-        <div className="logo-boxs">
-          <Logo />
-          <ul className="social-links">
-            {SOCIAL_LINKS.map((social) => (
-              <li key={social.name}>
-                <a
-                  className={`footer-icon--link ${social.className}`}
-                  href="#"
-                  aria-label={social.name}
-                >
-                  <Icon name={social.icon} className="footer-icon" />
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p className="copyright">
-            Copyright &copy; <span className="year">2026</span> by Fluenseafy,
-            Inc. All rights reserved.
+    <footer className="bg-navy-deep text-white">
+      <Container className="grid gap-12 py-14 sm:py-16 md:grid-cols-[1.4fr_1fr_1.2fr]">
+        <div>
+          <Logo tone="light" />
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
+            Interact, learn and improve your English, one level at a time.
           </p>
         </div>
 
-        {FOOTER_COLUMNS.map((column) => (
-          <div key={column.heading} className="col">
-            <h2 className="footer-heading">{column.heading}</h2>
-            <ul className="footer-lists">
-              {column.links.map((link) => (
-                <li key={link.label} className="footer-list">
-                  <a href={link.href} className="footer-link">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <nav aria-labelledby="footer-explore">
+          <h2
+            id="footer-explore"
+            className="text-sm font-semibold tracking-wide text-white"
+          >
+            Explore
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {NAV_LINKS.map(({ label, href }) => (
+              <li key={label}>
+                <a href={href} className={linkClass}>
+                  {label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href="#assessment" className={linkClass}>
+                Free assessment
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-        <div className="col">
-          <h2 className="footer-heading">Contact Us</h2>
-          <address className="address-box">
-            <p className="address-text">Dhaka, Bangladesh</p>
+        <div>
+          <h2 className="text-sm font-semibold tracking-wide text-white">
+            Contact us
+          </h2>
+          <address className="mt-4 space-y-3 text-sm not-italic">
+            <p className="flex items-center gap-2.5 text-white/70">
+              <MapPinIcon className="size-4 shrink-0" aria-hidden="true" />
+              Dhaka, Bangladesh
+            </p>
             <p>
-              <a href="tel:+8801631619100" className="footer-link">
+              <a
+                href="tel:+8801631619100"
+                className={`${linkClass} inline-flex items-center gap-2.5`}
+              >
+                <PhoneIcon className="size-4 shrink-0" aria-hidden="true" />
                 01631619100
               </a>
-              <br />
-              <a href="mailto:shahadat78789812@gmail.com" className="footer-link">
+            </p>
+            <p>
+              <a
+                href="mailto:shahadat78789812@gmail.com"
+                className={`${linkClass} inline-flex items-center gap-2.5 break-all`}
+              >
+                <MailIcon className="size-4 shrink-0" aria-hidden="true" />
                 shahadat78789812@gmail.com
               </a>
             </p>
           </address>
         </div>
+      </Container>
+
+      <div className="border-t border-white/10">
+        <Container className="py-6 text-sm text-white/60">
+          &copy; 2026 Fluenseafy, Inc. All rights reserved.
+        </Container>
       </div>
     </footer>
   );

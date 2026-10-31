@@ -1,9 +1,122 @@
-﻿/*
- * Tailwind without Preflight: the legacy CSS in src/styles/ owns the reset and
- * base styles. Tailwind utilities remain available. Note: the legacy
- * `html { font-size: 62.5% }` makes 1rem = 10px, so rem-based utilities are
- * smaller than Tailwind's defaults.
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Light-only for now; the class-based variant keeps shadcn's `dark:` utilities inert. */
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Fluenseafy design tokens. Brand colours come from the legacy palette
+ * (crimson #cc1855, navy #001f3f, blue #2388cc); text-safe variants and
+ * neutral tints were added for contrast. See CLAUDE.md for the full palette.
  */
-@layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities);
+:root {
+  --background: #ffffff;
+  --foreground: #001f3f; /* navy: headings and primary text */
+  --card: #ffffff;
+  --card-foreground: #001f3f;
+  --popover: #ffffff;
+  --popover-foreground: #001f3f;
+  --primary: #cc1855; /* crimson: main CTA (5.5:1 on white) */
+  --primary-foreground: #ffffff;
+  --secondary: #001f3f; /* navy: secondary CTA */
+  --secondary-foreground: #ffffff;
+  --muted: #f3f7fb;
+  --muted-foreground: #4a5766; /* body copy (7:1 on white) */
+  --accent: #e4f0f9; /* sky tint: hover and highlight surfaces */
+  --accent-foreground: #001f3f;
+  --destructive: #c0262d;
+  --border: #dde6ee;
+  --input: #8a9db2; /* form control border */
+  --ring: #2388cc;
+  --radius: 0.75rem;
+
+  --brand-strong: #a31344; /* crimson hover / wordmark */
+  --brand-blue: #2388cc;
+  --brand-blue-strong: #1c6da3; /* blue for text and icons (5.5:1) */
+  --brand-rose: #f9e9ef;
+  --surface: #f5fafd; /* alternate section background */
+  --navy-deep: #001120; /* footer */
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-strong: var(--brand-blue-strong);
+  --color-brand-rose: var(--brand-rose);
+  --color-surface: var(--surface);
+  --color-navy-deep: var(--navy-deep);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --shadow-card: 0 1px 2px rgb(0 31 63 / 0.04), 0 8px 24px -12px rgb(0 31 63 / 0.12);
+  --shadow-card-hover: 0 2px 4px rgb(0 31 63 / 0.04), 0 16px 32px -12px rgb(0 31 63 / 0.18);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+    scroll-padding-top: 5rem; /* sticky header */
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+}
+
+/*
+ * Scroll-reveal using CSS scroll-driven animations. Browsers without support
+ * (and users who prefer reduced motion) simply see the content immediately.
+ */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}

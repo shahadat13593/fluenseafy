@@ -7,7 +7,7 @@ import { Cta } from "@/components/landing/cta";
 
 export default function HomePage() {
   return (
-    <main className="main">
+    <main id="main">
       <Hero />
       <Pathway />
       <Progression />

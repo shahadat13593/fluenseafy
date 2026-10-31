@@ -1,70 +1,96 @@
-import { Icon } from "@/components/icons";
-import { SectionHeader } from "./section-header";
+import { Section, SectionHeader } from "@/components/layout/section";
+import { cn } from "@/lib/utils";
 
-const PILLARS = ["Listening", "Speaking", "Reading", "Writing"];
+const SKILLS = ["Listening", "Speaking", "Reading", "Writing"];
 
+// Rising offsets on large screens echo the legacy "staircase" and suggest progress.
 const LEVELS = [
-  { title: "Beginner — A1 to A2", percent: 55, bg: "bg--1", fill: "progress-bar--fill-1" },
-  { title: "Intermediate — B1 to B2", percent: 65, bg: "bg--2", fill: "progress-bar--fill-2" },
-  { title: "Advanced — C1 to C2", percent: 75, bg: "bg--3", fill: "progress-bar--fill-3" },
+  {
+    code: "A1 – A2",
+    title: "Beginner",
+    percent: 55,
+    badge: "bg-accent text-brand-blue-strong",
+    offset: "lg:mt-16",
+  },
+  {
+    code: "B1 – B2",
+    title: "Intermediate",
+    percent: 65,
+    badge: "bg-brand-rose text-brand-strong",
+    offset: "lg:mt-8",
+  },
+  {
+    code: "C1 – C2",
+    title: "Advanced",
+    percent: 75,
+    badge: "bg-muted text-foreground",
+    offset: "lg:mt-0",
+  },
 ];
-
-// Legacy layout: a 3-column grid where each card is followed by three empty
-// cells, which produces the diagonal "staircase" arrangement.
-function EmptyCells({ prefix }: { prefix: string }) {
-  return [0, 1, 2].map((i) => (
-    <div key={`${prefix}-${i}`} className="progression-box" aria-hidden="true" />
-  ));
-}
 
 export function Progression() {
   return (
-    <section id="progression" className="section--progression">
+    <Section id="levels">
       <SectionHeader
         eyebrow="Progression"
         title="Your Personalized Path to Fluency — One Level at a Time"
       />
-      <div className="container grid grid--3--cols no-gap">
-        {LEVELS.map((level, i) => (
-          <ProgressionGroup key={level.title} level={level} last={i === LEVELS.length - 1} />
+      <div className="mt-12 grid items-start gap-6 sm:mt-16 lg:grid-cols-3">
+        {LEVELS.map((level) => (
+          <article
+            key={level.code}
+            className={cn(
+              "reveal rounded-2xl border bg-card p-6 shadow-card transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-card-hover sm:p-7",
+              level.offset,
+            )}
+          >
+            <span
+              className={cn(
+                "inline-block rounded-full px-3 py-1 text-xs font-semibold tracking-wide",
+                level.badge,
+              )}
+            >
+              {level.code}
+            </span>
+            <h3 className="mt-4 text-2xl font-bold tracking-tight text-foreground">
+              {level.title}
+            </h3>
+
+            <div className="mt-6">
+              <div className="flex items-baseline justify-between text-sm">
+                <span className="text-muted-foreground">Sample progress</span>
+                <span className="font-semibold text-foreground">
+                  {level.percent}%
+                </span>
+              </div>
+              <div
+                role="progressbar"
+                aria-label={`Sample progress for ${level.title}`}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={level.percent}
+                className="mt-2 h-2 overflow-hidden rounded-full bg-muted"
+              >
+                <div
+                  className="h-full rounded-full bg-primary"
+                  style={{ width: `${level.percent}%` }}
+                />
+              </div>
+            </div>
+
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {SKILLS.map((skill) => (
+                <li
+                  key={skill}
+                  className="rounded-full border bg-background px-3 py-1 text-xs font-medium text-muted-foreground"
+                >
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </article>
         ))}
       </div>
-    </section>
-  );
-}
-
-function ProgressionGroup({
-  level,
-  last,
-}: {
-  level: (typeof LEVELS)[number];
-  last: boolean;
-}) {
-  return (
-    <>
-      <div className={`progression-box content-p ${level.bg}`}>
-        <div className="p-box--first">
-          <div className="progress-bar-box">
-            <p className="Progress-level">
-              Progress:{" "}
-              <span className="Progress-percentage">{level.percent}% Done</span>
-            </p>
-            <div className="progress-bar" aria-hidden="true">
-              <div className={`progress-bar-fill ${level.fill}`} />
-            </div>
-          </div>
-          <Icon name="person-circle-outline" className="progression-icon" />
-        </div>
-        <h3 className="progression-heading">{level.title}</h3>
-        <div className="four--pillars">
-          {PILLARS.map((pillar) => (
-            <div key={pillar} className="pillar">
-              <span className="p-levels">{pillar}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      {!last && <EmptyCells prefix={level.title} />}
-    </>
+    </Section>
   );
 }

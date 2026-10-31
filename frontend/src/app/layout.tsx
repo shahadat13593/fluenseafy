@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import "@/styles/general.css";
-import "@/styles/icons.css";
-import "@/styles/index.css";
-import "@/styles/responsive.css";
 
-const inter = Inter({ subsets: ["latin"], display: "swap", axes: ["opsz"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  axes: ["opsz"],
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Fluenseafy - Interact, Learn and Improve",
@@ -17,8 +18,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={inter.variable}>
+      <body>{children}</body>
     </html>
   );
 }
