@@ -72,4 +72,6 @@ Tokens live in `frontend/src/app/globals.css` (`:root` + `@theme inline`). Light
 - Radius: `--radius` 0.75rem; cards `rounded-2xl`, hero/CTA panels `rounded-3xl`. Shadows: `shadow-card`, `shadow-card-hover`.
 - Layout: `Container` (max-w-6xl) and `Section` (`py-16 sm:py-20 lg:py-28`, optional `tone="surface"`).
 - Buttons: `default` (crimson), `secondary` (navy), `outline`, `ghost`, `link`; sizes `default`, `sm`, `lg`, `icon`.
-- Motion: CSS transitions only; `.reveal` uses scroll-driven animations and is skipped for reduced motion/unsupported browsers.
+- Motion: one easing (`--ease-smooth`) and four durations in globals.css (fast 200ms, base 300ms, slow 450ms, enter 600ms). Transform/opacity only. Use `.rise` (load), `.reveal` (+ `--reveal-i` stagger, scroll-driven, no JS), and `.surface-lift` (cards: 2px lift + shadow fade). Use the individual `translate` property in keyframes, never `transform`, so hover transforms keep working. Always honour `prefers-reduced-motion`.
+- Elevation: `shadow-xs/sm/md/lg` plus `shadow-card` and `shadow-card-hover` (navy-tinted, low opacity); avoid heavy shadows.
+- Hero ambient background: `hero-ambient.tsx` (the only extra client component) eases pointer position into `--px/--py`; layers and colours are in globals.css. Keep the hero illustration wrapper free of opacity/transform/z-index so `mix-blend-multiply` keeps working.

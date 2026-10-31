@@ -16,7 +16,7 @@ export function Section({
     <section
       className={cn(
         "py-16 sm:py-20 lg:py-28",
-        tone === "surface" && "bg-surface",
+        tone === "surface" && "border-y border-border/70 bg-surface",
         className,
       )}
       {...props}
@@ -38,7 +38,7 @@ export function SectionHeader({
       <p className="text-sm font-semibold tracking-[0.12em] text-primary uppercase">
         {eyebrow}
       </p>
-      <h2 className="mt-3 text-3xl font-bold tracking-tight text-balance text-foreground sm:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+      <h2 className="mt-3 text-[clamp(1.875rem,1.4rem+1.6vw,2.75rem)] leading-[1.15] font-bold tracking-tight text-balance text-foreground">
         {title}
       </h2>
     </div>

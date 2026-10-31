@@ -58,7 +58,7 @@ export function Cta() {
                     id="where"
                     name="where"
                     defaultValue=""
-                    className="h-11 w-full appearance-none rounded-lg border border-input bg-background px-3.5 pr-10 text-base text-foreground transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+                    className="h-11 w-full appearance-none rounded-lg border border-input bg-background px-3.5 pr-10 text-base text-foreground transition-[border-color,box-shadow] duration-200 outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
                   >
                     <option value="">Please choose one option:</option>
                     <option value="friends">Friends and family</option>

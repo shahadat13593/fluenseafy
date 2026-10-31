@@ -38,22 +38,25 @@ export function Framework() {
         eyebrow="Framework"
         title="How You Learn — A Step by Step Process"
       />
-      <div className="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
-        {FEATURES.map(({ Icon, title, text }) => (
+      <div className="mt-12 grid gap-5 lg:mt-16 sm:grid-cols-2 lg:grid-cols-4">
+        {FEATURES.map(({ Icon, title, text }, i) => (
           <Card
             key={title}
-            className="reveal transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+            style={{ "--reveal-i": i } as React.CSSProperties}
+            className="reveal surface-lift gap-5 [--card-spacing:--spacing(7)]"
           >
-            <CardHeader>
-              <span className="mb-2 grid size-12 place-items-center rounded-xl bg-accent text-brand-blue-strong">
-                <Icon className="size-6" aria-hidden="true" />
+            <CardHeader className="gap-5">
+              <span className="grid size-11 place-items-center rounded-xl bg-accent text-brand-blue-strong ring-1 ring-brand-blue/10 transition-colors duration-300 group-hover/card:bg-brand-blue/15">
+                <Icon className="size-5" aria-hidden="true" />
               </span>
-              <CardTitle>
+              <CardTitle className="text-[1.0625rem]">
                 <h3>{title}</h3>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="leading-relaxed text-muted-foreground">{text}</p>
+              <p className="text-[0.9375rem] leading-[1.7] text-muted-foreground">
+                {text}
+              </p>
             </CardContent>
           </Card>
         ))}

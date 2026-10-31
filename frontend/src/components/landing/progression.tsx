@@ -35,12 +35,13 @@ export function Progression() {
         eyebrow="Progression"
         title="Your Personalized Path to Fluency — One Level at a Time"
       />
-      <div className="mt-12 grid items-start gap-6 sm:mt-16 lg:grid-cols-3">
-        {LEVELS.map((level) => (
+      <div className="mt-12 grid items-start gap-6 lg:mt-16 lg:grid-cols-3">
+        {LEVELS.map((level, i) => (
           <article
             key={level.code}
+            style={{ "--reveal-i": i } as React.CSSProperties}
             className={cn(
-              "reveal rounded-2xl border bg-card p-6 shadow-card transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-card-hover sm:p-7",
+              "reveal surface-lift rounded-2xl border bg-card p-6 shadow-card sm:p-7",
               level.offset,
             )}
           >
@@ -72,7 +73,7 @@ export function Progression() {
                 className="mt-2 h-2 overflow-hidden rounded-full bg-muted"
               >
                 <div
-                  className="h-full rounded-full bg-primary"
+                  className="progress-fill h-full rounded-full bg-primary"
                   style={{ width: `${level.percent}%` }}
                 />
               </div>

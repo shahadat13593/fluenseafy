@@ -4,16 +4,16 @@ import { cn } from "cn"
 import { Slot } from "radix-ui"
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-transparent text-sm font-semibold whitespace-nowrap transition-[color,background-color,border-color,box-shadow,transform] duration-200 outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-offset-2 active:translate-y-px disabled:pointer-events-none disabled:opacity-60 aria-disabled:pointer-events-none aria-disabled:opacity-60 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "inline-flex shrink-0 items-center justify-center gap-2 rounded-lg border border-transparent text-sm font-semibold whitespace-nowrap transition-[color,background-color,border-color,box-shadow,transform] duration-200 ease-smooth outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:ring-offset-2 active:translate-y-px disabled:pointer-events-none disabled:opacity-60 aria-disabled:pointer-events-none aria-disabled:opacity-60 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-sm hover:bg-brand-strong hover:shadow-md",
+          "bg-primary text-primary-foreground shadow-xs hover:-translate-y-px hover:bg-brand-strong hover:shadow-sm",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-navy-deep hover:shadow-md",
+          "bg-secondary text-secondary-foreground shadow-xs hover:-translate-y-px hover:bg-navy-deep hover:shadow-sm",
         outline:
-          "border-border bg-background text-foreground hover:border-foreground/30 hover:bg-accent",
+          "border-border bg-background text-foreground hover:-translate-y-px hover:border-foreground/25 hover:bg-accent",
         ghost: "text-foreground hover:bg-accent",
         link: "text-brand-blue-strong underline-offset-4 hover:underline",
       },

@@ -54,7 +54,7 @@ export function Pathway() {
         eyebrow="Pathway"
         title="A Smarter Way to Master English — Step by Step"
       />
-      <div className="mt-12 space-y-14 sm:mt-16 lg:space-y-24">
+      <div className="mt-12 space-y-14 lg:mt-16 lg:space-y-24">
         {STEPS.map((step, i) => {
           const imageFirst = i % 2 === 1;
           return (

@@ -4,7 +4,7 @@ import { Logo } from "./logo";
 import { NAV_LINKS } from "./nav-links";
 
 const linkClass =
-  "rounded-sm text-sm text-white/70 transition-colors hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60";
+  "rounded-sm text-sm text-white/70 underline decoration-transparent decoration-1 underline-offset-4 transition-[color,text-decoration-color] duration-300 hover:text-white hover:decoration-white/50 focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60";
 
 export function SiteFooter() {
   return (
